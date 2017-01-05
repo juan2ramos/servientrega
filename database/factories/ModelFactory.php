@@ -11,13 +11,17 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(servientrega\User::class, function (Faker\Generator $faker) {
     static $password;
-
+    $first_name = $faker->name;
+    $last_name = $faker->lastName;
     return [
-        'name' => $faker->name,
+        'first_name' => $first_name,
+        'last_name' => $last_name,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'api_token' => str_random(60),
+        'slug' => str_slug($first_name . $last_name )
     ];
 });

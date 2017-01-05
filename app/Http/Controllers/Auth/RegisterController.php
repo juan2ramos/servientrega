@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace servientrega\Http\Controllers\Auth;
 
-use App\User;
+use servientrega\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use servientrega\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller

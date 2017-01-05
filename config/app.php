@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => 'Servientrega',
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -167,16 +167,16 @@ return [
          * Package Service Providers...
          */
 
-        //
+        Styde\Html\HtmlServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        servientrega\Providers\AppServiceProvider::class,
+        servientrega\Providers\AuthServiceProvider::class,
+        // servientrega\Providers\BroadcastServiceProvider::class,
+        servientrega\Providers\EventServiceProvider::class,
+        servientrega\Providers\RouteServiceProvider::class,
 
     ],
 
@@ -226,6 +226,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Access' => Styde\Html\Facades\Access::class,
     ],
 
 ];
