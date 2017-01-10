@@ -46,9 +46,7 @@ class Handler extends ExceptionHandler
     {
 
 
-        if($exception->getStatusCode() == '408'){
-            return response()->json(['success' => false, "message" => trans('messages.noFound')]);
-        }
+
         return parent::render($request, $exception);
     }
 
