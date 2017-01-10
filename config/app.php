@@ -162,13 +162,14 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Package Service Providers...
          */
 
         Styde\Html\HtmlServiceProvider::class,
-
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -177,6 +178,7 @@ return [
         // servientrega\Providers\BroadcastServiceProvider::class,
         servientrega\Providers\EventServiceProvider::class,
         servientrega\Providers\RouteServiceProvider::class,
+
 
     ],
 
@@ -227,6 +229,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Access' => Styde\Html\Facades\Access::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class
     ],
 
 ];

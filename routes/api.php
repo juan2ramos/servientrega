@@ -20,9 +20,8 @@ Route::group(['middleware' => 'auth:api'],function(){
 //        return auth()->guard('api')->user();
         return $request->user();
     });
-});
-
-
-Route::get('/juan', function (Request $request) {
-    return ['hola' => 'case'];
+    Route::post('/shipping', [
+        'uses' => 'ShippingController@calcPrice',
+        'as' => 'calcPrice',
+    ]);
 });
