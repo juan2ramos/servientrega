@@ -42,12 +42,7 @@ abstract class Shipping
         $infoTrip = City::whereRaw(
             'id_ciudad_origen = ' . $this->data['id_ciudad_origen'] .
             ' and id_ciudad_destino = ' . $this->data['id_ciudad_destino']
-        )->first();
-
-
-        if (!$infoTrip) {
-            abort('408');
-        }
+        )->firstorFail();
         $this->infoTrip = $infoTrip;
         return $this->calculatePriceInitialKilo();
     }
