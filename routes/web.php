@@ -19,6 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('importar-matriz', [
-    'uses' => 'importController@import',
+    'uses' => 'ImportController@import',
     'as' => 'importExcel'
 ]);
