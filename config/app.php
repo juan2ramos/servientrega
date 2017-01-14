@@ -178,7 +178,7 @@ return [
         // servientrega\Providers\BroadcastServiceProvider::class,
         servientrega\Providers\EventServiceProvider::class,
         servientrega\Providers\RouteServiceProvider::class,
-
+        Barryvdh\Cors\ServiceProvider::class,
 
     ],
 
