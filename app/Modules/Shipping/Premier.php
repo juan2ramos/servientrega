@@ -33,7 +33,7 @@ class Premier extends Shipping
     {
         return $this->matrizPrice
         [$this->getIdWeight($this->data['peso_fisico'])]
-        [strtolower($this->infoRoute->tipo_trayecto)];
+        [trim(strtolower($this->infoRoute->tipo_trayecto))];
     }
 
     private function getIdWeight($weight)

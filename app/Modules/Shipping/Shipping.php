@@ -40,7 +40,7 @@ abstract class Shipping
     private function priceAdditionalKilo($maxKilo)
     {
         return ($this->data['peso_fisico'] - $maxKilo) *
-            $this->matrizPrice[2] [strtolower($this->infoRoute->tipo_trayecto)];;
+            $this->matrizPrice[2] [trim(strtolower($this->infoRoute->tipo_trayecto))];;
     }
 
     private function checkWeight($factor)
