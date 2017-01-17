@@ -33,7 +33,7 @@ class Premier extends Shipping
     {
         return $this->matrizPrice
         [$this->getIdWeight($this->data['peso_fisico'])]
-        [trim(strtolower($this->infoRoute->tipo_trayecto))];
+        [strtolower(str_replace(" ", "_", $this->infoRoute->tipo_trayecto))];
     }
 
     private function getIdWeight($weight)
@@ -52,9 +52,9 @@ class Premier extends Shipping
         $this->matrizPrice[0]['urbano'] = env('URBANO1', 4900);
         $this->matrizPrice[1]['urbano'] = env('URBANO2', 8400);
         $this->matrizPrice[2]['urbano'] = env('URBANO3', 1800);
-        $this->matrizPrice[0]['especial'] = env('ESPECIAL1', 15800);
-        $this->matrizPrice[1]['especial'] = env('ESPECIAL2', 26800);
-        $this->matrizPrice[2]['especial'] = env('ESPECIAL3', 5700);
+        $this->matrizPrice[0]['trayecto_especial'] = env('ESPECIAL1', 15800);
+        $this->matrizPrice[1]['trayecto_especial'] = env('ESPECIAL2', 26800);
+        $this->matrizPrice[2]['trayecto_especial'] = env('ESPECIAL3', 5700);
     }
 
 
