@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'weightIsNot' => 'El peso no es permitido ',
+    'weightIsNot' => 'Error al tratar de generar la consulta, revise los campos e intentelo de nuevo.',
     'noFound' => 'objeto no encontrado ',
 
 ];

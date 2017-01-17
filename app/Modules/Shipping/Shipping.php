@@ -9,60 +9,60 @@ use servientrega\Entities\City;
 abstract class Shipping
 {
     protected $data;
-    protected $ladig;
-    protected $infoTrip;
-    protected $weightInvoice;
+    protected $typeRoute;
+    protected $lading;
+    protected $infoRoute;
+    protected $matrizPrice = [];
 
-
-    public function __construct()
+    /**
+     * @return array
+     */
+    public function getInfoLading()
     {
-        $this->weightInvoice();
-        $this->ladig = [
-            'precio' => $this->calculatePrice(),
-            'tipo_trayecto' => $this->infoTrip->tipo_trayecto
-        ];
+        return $this->lading;
     }
 
-    public function weightInvoice()
+    protected function infoRoute()
     {
-        $weightVolumetric = $this->calcWeightVolumetric();
-        $weight = $this->data['peso_fisico'] * $this->data['cantidad'];
-
-        $this->weightInvoice = ($weightVolumetric > $weight) ? $weightVolumetric : $weight;
-    }
-
-    private function calcWeightVolumetric()
-    {
-        return $this->data['packing']['largo'] * $this->data['packing']['ancho'] *
-            $this->data['packing']['alto'] * $this->data['packing']['cantidad'] * 222;
-    }
-
-    protected function priceInitialKilo()
-    {
-        $infoTrip = City::whereRaw(
+        $this->infoRoute = City::whereRaw(
             'id_ciudad_origen = ' . $this->data['id_ciudad_origen'] .
             ' and id_ciudad_destino = ' . $this->data['id_ciudad_destino']
         )->firstorFail();
-        $this->infoTrip = $infoTrip;
-        return $this->calculatePriceInitialKilo();
     }
 
-    private function calculatePriceInitialKilo()
+    protected function priceAdditionalKiloTotal($factor, $maxKilo)
     {
-        /*
-         * Valor de test,
-         * */
-        return 20000;
+
+        return $this->checkWeight($factor) * $this->priceAdditionalKilo($maxKilo);
+
+    }
+
+    private function priceAdditionalKilo($maxKilo)
+    {
+        return ($this->data['peso_fisico'] - $maxKilo) *
+            $this->matrizPrice[2] [strtolower($this->infoRoute->tipo_trayecto)];;
+    }
+
+    private function checkWeight($factor)
+    {
+        $packing = $this->data['packing'];
+        $volume = ($packing['largo'] * $packing['ancho'] * $packing['alto'] * $factor) / 1000000;
+        $minimumWeight = env('PESOMINIMO', 3);
+
+        $weight = ($volume > $minimumWeight) ? $volume : $minimumWeight;
+        return ($this->data['peso_fisico'] > $weight) ? $this->data['peso_fisico'] : $weight;
     }
 
 
-    /**
-     * @return mixed
-     */
-    public function getInfoLadig()
+    protected function priceLadingVariable()
     {
+        $priceDeclaredMinimum = env('VALORDECLARADOMINIMO', 5000);
+        $priceLadingMinimum = env('VALORFLEREVARIABLEMINIMO', 300);
 
-        return $this->ladig;
+        $priceDeclared = ($priceDeclaredMinimum > $this->data['valor']) ? $priceDeclaredMinimum : $this->data['valor'];
+        $priceLadingVariable = $priceDeclared * env('TASADEMANEJO',0.01);
+
+        return ($priceLadingVariable > $priceLadingMinimum) ? $priceLadingVariable : $priceLadingMinimum;
     }
 
 
