@@ -16,7 +16,7 @@ class ShippingController extends Controller
             return ['success' => 'false', 'message' => trans('messages.weightIsNot')];
 
         $shipping = ShippingFactory::create($this->typeShipping($request->all()), $request->all());
-        return ['success' => true, 'price' => $shipping->getInfoLading()];
+        return ['success' => true, 'data' => $shipping->getInfoLading()];
     }
 
     private function validation($request)

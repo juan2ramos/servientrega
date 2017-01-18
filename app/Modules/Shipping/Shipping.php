@@ -19,7 +19,12 @@ abstract class Shipping
      */
     public function getInfoLading()
     {
-        return $this->lading;
+        return [
+          'precio' => $this->lading,
+          'tipo_trayecto' => $this->infoRoute['tipo_trayecto'],
+          'id_ciudad_origen' => $this->infoRoute['id_ciudad_origen'],
+          'id_ciudad_destino' => $this->infoRoute['id_ciudad_destino']
+        ];
     }
 
     protected function infoRoute()

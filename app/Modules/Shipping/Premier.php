@@ -20,7 +20,6 @@ class Premier extends Shipping
 
     private function priceLadingFixedTotal()
     {
-        dd($this->priceAdditionalKiloTotal(env('FACTORPREMIER',222),env('MAXKILOPREMIER',12)));
         $priceAdditionalKilo = ($this->data['peso_fisico'] > 12) ?
             $this->priceAdditionalKiloTotal(env('FACTORPREMIER',222),env('MAXKILOPREMIER',12)) : 0;
 
