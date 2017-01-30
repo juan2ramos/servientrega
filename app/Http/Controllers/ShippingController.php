@@ -45,7 +45,7 @@ class ShippingController extends Controller
     private function typeShipping($data)
     {
         /* Por ahora solo vamos a trabajar con mercancia premier */
-        return 'premier';
+        return 'industrial';
         $weight = $data['peso_fisico'];
 
         if ($weight > 3 || $weight < 12)

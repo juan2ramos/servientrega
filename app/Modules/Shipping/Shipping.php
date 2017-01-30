@@ -26,35 +26,19 @@ abstract class Shipping
         ];
     }
 
-
-
-    protected function priceAdditionalKiloTotal($factor, $maxKilo)
-    {
-
-        return $this->checkWeight($factor) * $this->priceAdditionalKilo($maxKilo);
-
-    }
-
-    private function priceAdditionalKilo($maxKilo)
-    {
-
-;
-        return ($this->data['peso_fisico'] - $maxKilo) *
-            $this->matrizPrice[2] [strtolower(str_replace(" ", "_", $this->infoRoute->tipo_trayecto))];;
-    }
-
-    private function checkWeight($factor)
+    protected function checkWeight($factor)
     {
         $packing = $this->data['packing'];
+
         $volume = ($packing['largo'] * $packing['ancho'] * $packing['alto'] * $factor) / 1000000;
         $minimumWeight = env('PESOMINIMO', 3);
-
         $weight = ($volume > $minimumWeight) ? $volume : $minimumWeight;
+
         return ($this->data['peso_fisico'] > $weight) ? $this->data['peso_fisico'] : $weight;
     }
 
 
-    protected function priceLadingVariable()
+    protected function  priceLadingVariable()
     {
         $priceDeclaredMinimum = env('VALORDECLARADOMINIMO', 5000);
         $priceLadingMinimum = env('VALORFLEREVARIABLEMINIMO', 300);

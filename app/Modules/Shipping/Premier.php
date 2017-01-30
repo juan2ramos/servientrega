@@ -4,10 +4,11 @@ namespace servientrega\Modules\Shipping;
 use servientrega\Entities\City;
 class Premier extends Shipping
 {
-
+    private $factor ;
     public function __construct($data)
     {
         $this->data = $data;
+        $this->factor = env('FACTORPREMIER',222);
         $this->loadMatrizPrice();
         $this->infoRoute();
         $this->calculate();
@@ -26,24 +27,31 @@ class Premier extends Shipping
     }
     private function priceLadingFixedTotal()
     {
-        $priceAdditionalKilo = ($this->data['peso_fisico'] > 12) ?
-            $this->priceAdditionalKiloTotal(env('FACTORPREMIER',222),env('MAXKILOPREMIER',12)) : 0;
 
-        $priceLadingGross = $this->priceInitialKilo() + $priceAdditionalKilo;
+        $weightTotal = $this->checkWeight($this->factor);
+        $priceAdditionalKilo = ($weightTotal > 12) ?
+            $this->priceAdditionalKiloTotal($weightTotal, env('MAXKILOPREMIER',12)) : 0;
+
+        $priceLadingGross = $this->priceInitialKilo($weightTotal) + $priceAdditionalKilo;
         $minimumLadingt = env('VALORFLETEMINIMO',300);
         return ($priceLadingGross > $minimumLadingt ) ? $priceLadingGross : $minimumLadingt ;
     }
 
-    protected function priceInitialKilo()
+    private function priceInitialKilo($weightTotal)
     {
         return $this->matrizPrice
-        [$this->getIdWeight($this->data['peso_fisico'])]
+        [$this->getIdWeight($weightTotal)]
         [strtolower(str_replace(" ", "_", $this->infoRoute->tipo_trayecto))];
+    }
+    private function priceAdditionalKiloTotal($weightTotal, $maxKilo)
+    {
+        return ($weightTotal - $maxKilo) *
+            $this->matrizPrice[2] [strtolower(str_replace(" ", "_", $this->infoRoute->tipo_trayecto))];
     }
 
     private function getIdWeight($weight)
     {
-        return ($weight <= 3) ? 0 : (($weight >= 4 && $weight <= 12) ? 1 : 2);
+        return ($weight <= 3) ? 0 : 1 ;
     }
 
     private function loadMatrizPrice()
