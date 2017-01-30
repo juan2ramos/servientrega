@@ -12,7 +12,7 @@ class ImportController extends Controller
     public function import()
     {
         $file = Storage::url('app/public/excel/matriz.xlsx');
-       // DB::table('cities')->truncate();
+        DB::table('cities')->truncate();
 
         Excel::load($file, function ($reader) {
             City::insert($reader->all()->toArray());

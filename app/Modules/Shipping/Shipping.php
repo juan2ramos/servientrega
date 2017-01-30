@@ -4,7 +4,6 @@ namespace servientrega\Modules\Shipping;
 
 
 use Illuminate\Http\Response;
-use servientrega\Entities\City;
 
 abstract class Shipping
 {
@@ -27,13 +26,7 @@ abstract class Shipping
         ];
     }
 
-    protected function infoRoute()
-    {
-        $this->infoRoute = City::whereRaw(
-            'id_ciudad_origen = ' . $this->data['id_ciudad_origen'] .
-            ' and id_ciudad_destino = ' . $this->data['id_ciudad_destino']
-        )->firstorFail();
-    }
+
 
     protected function priceAdditionalKiloTotal($factor, $maxKilo)
     {

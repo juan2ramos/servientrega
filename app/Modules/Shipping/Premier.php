@@ -1,7 +1,7 @@
 <?php
 
 namespace servientrega\Modules\Shipping;
-
+use servientrega\Entities\City;
 class Premier extends Shipping
 {
 
@@ -17,7 +17,13 @@ class Premier extends Shipping
     {
         $this->lading = $this->priceLadingVariable() + $this->priceLadingFixedTotal();
     }
-
+    private function infoRoute()
+    {
+        $this->infoRoute = City::whereRaw(
+            'id_ciudad_origen = ' . $this->data['id_ciudad_origen'] .
+            ' and id_ciudad_destino = ' . $this->data['id_ciudad_destino']
+        )->firstorFail();
+    }
     private function priceLadingFixedTotal()
     {
         $priceAdditionalKilo = ($this->data['peso_fisico'] > 12) ?

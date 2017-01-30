@@ -36,7 +36,6 @@ class ShippingController extends Controller
         ]);
 
 
-
     }
 
     /**
@@ -45,7 +44,7 @@ class ShippingController extends Controller
      */
     private function typeShipping($data)
     {
-        /* Po ahora solo vamos a trabajar con mercancia premier */
+        /* Por ahora solo vamos a trabajar con mercancia premier */
         return 'premier';
         $weight = $data['peso_fisico'];
 
@@ -53,6 +52,4 @@ class ShippingController extends Controller
             return 'premier';
         return 'industrial';
     }
-
-
 }
